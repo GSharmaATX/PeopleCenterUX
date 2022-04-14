@@ -10,20 +10,37 @@ if (process.env.NODE_ENV === "production") {
 }
 export const API_BASE_URL = base_url;
 
-export const getRequest = async (url: string) => {
-  const { data } = await axios.get(`${url}`);
+export const getRequest = async (url: string, JWTToken: string) => {
+  const { data } = await axios.get(`${url}`, {
+    headers: { Authorization: `Bearer ${JWTToken}` },
+  });
+  console.log(`Bearer ${JWTToken}`);
   return data;
 };
 
-export const postRequest = async (url: string, payload: any) => {
-  const { data } = await axios.post(url, payload);
+export const postRequest = async (
+  url: string,
+  payload: any,
+  JWTToken: string
+) => {
+  const { data } = await axios.post(url, payload, {
+    headers: { Authorization: `Bearer ${JWTToken}` },
+  });
   return data;
 };
 
-export const putRequest = async (url: string, payload: any) => {
-  const { data } = await axios.put(url, payload);
+export const putRequest = async (
+  url: string,
+  payload: any,
+  JWTToken: string
+) => {
+  const { data } = await axios.put(url, payload, {
+    headers: { Authorization: `Bearer ${JWTToken}` },
+  });
 };
 
-export const deleteRequest = async (url: string) => {
-  const { data } = await axios.delete(url);
+export const deleteRequest = async (url: string, JWTToken: string) => {
+  const { data } = await axios.delete(url, {
+    headers: { Authorization: `Bearer ${JWTToken}` },
+  });
 };

@@ -11,7 +11,7 @@ import {
 import { transformData } from "./transform-data";
 import { useGetPersonDetailByPersonNameIdAPI } from "../person-names/api-hooks";
 import { useParams } from "react-router-dom";
-import "./edit-person-detail.css";
+import "./edit-person-detail.module.css";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -29,8 +29,11 @@ export default function EditPersonDetail() {
 export function EditPersonDetailForm({ personDTO }) {
   // Use the hook to get add function.
   const url = API_BASE_URL + `person/${personDTO.id}/person-detail`;
-  const updatePerson = useMutation((payload) => putRequest(url, payload));
-  const deletePerson = useMutation(() => deleteRequest(url));
+  const idToken = String(localStorage.getItem("idToken"));
+  const updatePerson = useMutation((payload) =>
+    putRequest(url, payload, idToken)
+  );
+  const deletePerson = useMutation(() => deleteRequest(url, idToken));
 
   const {
     register,
@@ -53,7 +56,7 @@ export function EditPersonDetailForm({ personDTO }) {
     <div>
       <Typography variant="h5">Person Detail</Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
-        {/* The next 2 fields are hidden because user don't need to see them. They are needed for the backed API to work.*/}
+        {/* The next 4 fields are hidden because user don't need to see them. They are needed for the backed API to work.*/}
         <input
           type="hidden"
           defaultValue={personDTO.id}
@@ -63,6 +66,16 @@ export function EditPersonDetailForm({ personDTO }) {
           type="hidden"
           defaultValue={personDTO.personNames[0].id}
           {...register("personNameId")}
+        />
+        <input
+          type="hidden"
+          defaultValue={personDTO.version}
+          {...register("personVersion")}
+        />
+        <input
+          type="hidden"
+          defaultValue={personDTO.personNames[0].version}
+          {...register("personNameVersion")}
         />
         <label>First Name</label>
         <input
@@ -190,9 +203,8 @@ export function EditPersonDetailForm({ personDTO }) {
       {(updatePerson.isSuccess || deletePerson.isSuccess) && (
         <p>Requested action was successful</p>
       )}
-      {(updatePerson.isError || deletePerson.isError) && (
-        <p>There was an error!</p>
-      )}
+      {updatePerson.isError && <p>{updatePerson.error.message}</p>}
+      {deletePerson.isError && <p>{deletePerson.error.message}</p>}
     </div>
   );
 }

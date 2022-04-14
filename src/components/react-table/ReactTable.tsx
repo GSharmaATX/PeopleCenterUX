@@ -1,7 +1,7 @@
 import { useTable } from "react-table";
 import classNames from "classnames";
 
-import "./react-table.scss";
+import "react-table.module.scss";
 
 /* export type ColumnType = {
   header: string;

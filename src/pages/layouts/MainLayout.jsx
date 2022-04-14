@@ -18,6 +18,8 @@ import { mainListItems, secondaryListItems } from "../../shared/listItems";
 import Copyright from "../../components/Copyright";
 import AppBar from "../../components/AppBar";
 import Drawer from "../../components/Drawer";
+import SignInSignOut from "../../components/SignInSignOut";
+
 import { BrowserRouter as Router, Route, Link, Outlet } from "react-router-dom";
 
 const mdTheme = createTheme();
@@ -64,6 +66,7 @@ function DashboardContent() {
                 <NotificationsIcon />
               </Badge>
             </IconButton> */}
+            <SignInSignOut />
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>

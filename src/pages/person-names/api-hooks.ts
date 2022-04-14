@@ -11,13 +11,17 @@ export const useGetPersonNamesAPI = (
   requestParm += lastName ? "&" + lastName : "";
   let pageDetail = `?pageNumber=${pageRequest.pageNumber}&pageSize=${pageRequest.pageSize}&sortBy=${pageRequest.sortBy}&sortOrder=${pageRequest.sortOrder}&`;
   const url = API_BASE_URL + "person/person-names" + pageDetail + requestParm;
+  const idToken = String(localStorage.getItem("idToken"));
   return useQuery(
     ["get-person-names", requestParm, pageRequest.pageNumber],
-    () => getRequest(url)
+    () => getRequest(url, idToken)
   );
 };
 export const useGetPersonDetailByPersonNameIdAPI = (personNameId: Number) => {
   const url =
     API_BASE_URL + `person/person-detail?personNameId=${personNameId}`;
-  return useQuery(["get-person-detail", personNameId], () => getRequest(url));
+  const idToken = "" + localStorage.getItem("idToken");
+  return useQuery(["get-person-detail", personNameId], () =>
+    getRequest(url, idToken)
+  );
 };

@@ -11,6 +11,7 @@ export const transformData = (data) => {
     hairColorCd: data.hairColorCd,
     motherName: data.motherName,
     statusCd: data.statusCd,
+    version: data.personVersion,
     id: data.personId,
     personNames: [
       {
@@ -21,6 +22,7 @@ export const transformData = (data) => {
         lastName: data.lastName,
         middleName: data.middleName,
         statusCd: "ACT",
+        version: data.personNameVersion,
         id: data.personNameId,
       },
     ],

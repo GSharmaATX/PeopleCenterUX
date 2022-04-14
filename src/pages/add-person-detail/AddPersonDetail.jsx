@@ -8,12 +8,15 @@ import { transformData } from "./transform-data";
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 
-import "./add-person-detail.css";
+import "./add-person-detail.module.css";
 
 export default function AddPersonDetail() {
   // Use the hook to get add function.
   const url = API_BASE_URL + "person/person-detail";
-  const addPersonNames = useMutation((payload) => postRequest(url, payload));
+  const idToken = String(localStorage.getItem("idToken"));
+  const addPersonNames = useMutation((payload) =>
+    postRequest(url, payload, idToken)
+  );
   const navigate = useNavigate();
 
   const {
@@ -21,6 +24,7 @@ export default function AddPersonDetail() {
     formState: { errors },
     handleSubmit,
   } = useForm();
+
   const onSubmit = (data) => {
     console.log("Result: ", data);
     console.log("Stringified Data: ", JSON.stringify(data));
@@ -29,7 +33,9 @@ export default function AddPersonDetail() {
 
   React.useEffect(() => {
     addPersonNames.isSuccess && navigate("/home");
-  }, [addPersonNames.isSuccess]);
+    const idToken = String(localStorage.getItem("idToken"));
+    if (idToken == null) navigate("/login");
+  }, []);
 
   return (
     <div>

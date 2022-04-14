@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useTable, usePagination } from "react-table";
 import classNames from "classnames";
-import "./react-table.scss";
+import "./react-table.module.scss";
 
 /* Component Usage
 <Table columns={columns} data={data} />
