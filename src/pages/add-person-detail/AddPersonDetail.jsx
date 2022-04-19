@@ -11,9 +11,9 @@ import Button from "@mui/material/Button";
 import "./add-person-detail.module.css";
 
 export default function AddPersonDetail() {
-  // Use the hook to get add function.
   const url = API_BASE_URL + "person/person-detail";
   const idToken = String(localStorage.getItem("idToken"));
+  // Use the hook to get add function.
   const addPersonNames = useMutation((payload) =>
     postRequest(url, payload, idToken)
   );

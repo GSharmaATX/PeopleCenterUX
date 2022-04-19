@@ -6,7 +6,9 @@ export const API_DATE_FORMAT = "YYYY-MM-DD";
 let base_url = "http://localhost:8090/people-center/";
 
 if (process.env.NODE_ENV === "production") {
-  base_url = "http://34.201.243.203:8090/people-center/";
+  if (process.env.REACT_APP_API_API_BASE_URL_AWS) {
+    base_url = process.env.REACT_APP_API_API_BASE_URL_AWS;
+  }
 }
 export const API_BASE_URL = base_url;
 

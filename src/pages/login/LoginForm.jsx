@@ -58,7 +58,6 @@ export default function LoginForm() {
       onFailure: function (err) {
         alert(err.message || JSON.stringify(err));
       },
-      newPasswordRequired: navigate("/password-reset"),
     });
   };
   const handlePasswordReset = (data) => {
