@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 import { useTable, usePagination } from "react-table";
 import classNames from "classnames";
 import "./react-table.module.scss";
